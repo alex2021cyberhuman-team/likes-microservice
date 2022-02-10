@@ -1,4 +1,4 @@
-﻿using Conduit.Likes.Domain.Articles;
+using Conduit.Likes.Domain.Articles;
 
 namespace Conduit.Likes.DataAccess.Articles;
 
@@ -15,7 +15,7 @@ public class ArticlesRepository : IArticleRepository
     public async Task<ArticleModel?> FindArticleAsync(
         string articleSlug)
     {
-        var database = await _connectionProvider.GetDatabase();
+        var database = await _connectionProvider.GetDatabaseAsync();
         var articleModel = await database.FindArticleAsync(articleSlug);
         return articleModel;
     }

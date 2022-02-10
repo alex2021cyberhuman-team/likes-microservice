@@ -1,4 +1,4 @@
-﻿using Conduit.Likes.Domain.Articles;
+using Conduit.Likes.Domain.Articles;
 using StackExchange.Redis;
 
 namespace Conduit.Likes.DataAccess.Articles;
@@ -10,7 +10,7 @@ public static class ArticlesDatabaseExtensions
         string articleSlug)
     {
         var articleRedisValues = await database.HashGetAsync(
-            ArticlesKeys.GetArticleKey(articleSlug),
+            ArticlesKeys.GetArticleSlugKey(articleSlug),
             ArticlesKeys.GetArticleFields());
         var articleModel = articleRedisValues.Convert();
         return articleModel;

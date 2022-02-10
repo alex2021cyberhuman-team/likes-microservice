@@ -1,4 +1,4 @@
-﻿namespace Conduit.Likes.Domain.Articles;
+namespace Conduit.Likes.Domain.Articles;
 
 public interface IArticleRepository
 {

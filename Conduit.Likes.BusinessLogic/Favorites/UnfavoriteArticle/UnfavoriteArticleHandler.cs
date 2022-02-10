@@ -1,11 +1,11 @@
-﻿using Conduit.Likes.Domain.Articles;
+using Conduit.Likes.Domain.Articles;
 using Conduit.Likes.Domain.Favorites;
 using Conduit.Likes.Domain.Favorites.UnfavoriteArticle;
 using Conduit.Likes.Domain.Shared;
 using Conduit.Shared.Events.Models.Likes.Unfavorite;
 using Conduit.Shared.Events.Services;
 
-namespace Conduit.Likes.BusinessLogic.Favorites.UnfavoriteArticle;
+namespace Conduit.Likes.BusinessLogic.Unfavorites.UnfavoriteArticle;
 
 public class
     UnfavoriteArticleHandler : Domain.Favorites.UnfavoriteArticle
@@ -37,13 +37,13 @@ public class
             return new(Error.NotFound);
         }
 
-        var favoriteRemoved =
+        var favoriteRemovingResult =
             await _favoritesRepository.RemoveAsync(articleModel.Id,
                 request.UserId);
 
-        if (favoriteRemoved == false)
+        if (favoriteRemovingResult != Error.None)
         {
-            return new(Error.BadRequest);
+            return new(favoriteRemovingResult);
         }
 
         var unfavoriteArticleEventModel = new UnfavoriteArticleEventModel

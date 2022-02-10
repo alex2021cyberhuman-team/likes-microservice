@@ -1,12 +1,14 @@
-﻿namespace Conduit.Likes.Domain.Favorites;
+using Conduit.Likes.Domain.Shared;
+
+namespace Conduit.Likes.Domain.Favorites;
 
 public interface IFavoritesRepository
 {
-    Task<bool> AddAsync(
+    Task<Error> AddAsync(
         Guid articleId,
         Guid userId);
     
-    Task<bool> RemoveAsync(
+    Task<Error> RemoveAsync(
         Guid articleId,
         Guid userId);
 }

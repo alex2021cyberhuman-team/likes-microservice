@@ -1,11 +1,11 @@
-﻿using Conduit.Likes.Domain.Articles;
+using Conduit.Likes.Domain.Articles;
 using Conduit.Likes.Domain.Favorites;
 using Conduit.Likes.Domain.Favorites.FavoriteArticle;
 using Conduit.Likes.Domain.Shared;
 using Conduit.Shared.Events.Models.Likes.Favorite;
 using Conduit.Shared.Events.Services;
 
-namespace Conduit.Likes.BusinessLogic.Favorites.FavoriteArticle;
+namespace Conduit.Likes.BusinessLogic.Unfavorites.FavoriteArticle;
 
 public class
     FavoriteArticleHandler : Domain.Favorites.FavoriteArticle.FavoriteArticleHandler
@@ -37,13 +37,13 @@ public class
             return new(Error.NotFound);
         }
 
-        var favoriteAdded =
+        var favoriteAdditionResult =
             await _favoritesRepository.AddAsync(articleModel.Id,
                 request.UserId);
 
-        if (favoriteAdded == false)
+        if (favoriteAdditionResult != Error.None)
         {
-            return new(Error.BadRequest);
+            return new(favoriteAdditionResult);
         }
 
         var favoriteArticleEventModel = new FavoriteArticleEventModel

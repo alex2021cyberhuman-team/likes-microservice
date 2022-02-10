@@ -1,4 +1,4 @@
-﻿using Conduit.Likes.Domain.Articles;
+using Conduit.Likes.Domain.Articles;
 using StackExchange.Redis;
 
 namespace Conduit.Likes.DataAccess.Articles;
@@ -15,10 +15,10 @@ public static class ArticlesKeys
 
     private static readonly RedisValue[] _articleFields;
 
-    public static RedisKey GetArticleKey(
+    public static RedisKey GetArticleSlugKey(
         string articleSlug)
     {
-        return $"articles:{articleSlug}";
+        return $"articles:slug:{articleSlug}";
     }
 
     public static RedisValue[] GetArticleFields()
@@ -34,5 +34,10 @@ public static class ArticlesKeys
             Id = Guid.Parse(articlesRedisValues[0]),
             Slug = articlesRedisValues[1]
         };
+    }
+
+    public static RedisKey GetArticleIdKey(Guid articleId)
+    {
+        return $"articles:id:{articleId:N}";
     }
 }

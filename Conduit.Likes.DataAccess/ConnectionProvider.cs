@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 
 namespace Conduit.Likes.DataAccess;
@@ -17,7 +17,7 @@ public class ConnectionProvider
         _connectionProviderOptionsMonitor = connectionProviderOptionsMonitor;
     }
 
-    public async Task<IDatabase> GetDatabase()
+    public async Task<IDatabase> GetDatabaseAsync()
     {
         await ConnectAsync();
         return _connectionMultiplexer!.GetDatabase();
