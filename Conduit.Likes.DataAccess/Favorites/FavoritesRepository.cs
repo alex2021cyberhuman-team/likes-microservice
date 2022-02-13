@@ -7,7 +7,8 @@ public class FavoritesRepository : IFavoritesRepository
 {
     private readonly ConnectionProvider _connectionProvider;
 
-    public FavoritesRepository(ConnectionProvider connectionProvider)
+    public FavoritesRepository(
+        ConnectionProvider connectionProvider)
     {
         _connectionProvider = connectionProvider;
     }
@@ -19,8 +20,7 @@ public class FavoritesRepository : IFavoritesRepository
         var database = await _connectionProvider.GetDatabaseAsync();
         var transaction = database.CreateTransaction();
         var added = await transaction.SetAddAsync(
-            FavoritesKeys.GetUserFavoritesKey(userId),
-            articleId.ToString("N"));
+            FavoritesKeys.GetUserFavoritesKey(userId), articleId.ToString("N"));
         await transaction.ExecuteAsync();
         return added ? Error.None : Error.BadRequest;
     }
@@ -32,8 +32,7 @@ public class FavoritesRepository : IFavoritesRepository
         var database = await _connectionProvider.GetDatabaseAsync();
         var transaction = database.CreateTransaction();
         var removed = await transaction.SetRemoveAsync(
-            FavoritesKeys.GetUserFavoritesKey(userId),
-            articleId.ToString("N"));
+            FavoritesKeys.GetUserFavoritesKey(userId), articleId.ToString("N"));
         await transaction.ExecuteAsync();
         return removed ? Error.None : Error.BadRequest;
     }

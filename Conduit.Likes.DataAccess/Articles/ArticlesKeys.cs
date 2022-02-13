@@ -36,7 +36,8 @@ public static class ArticlesKeys
         };
     }
 
-    public static RedisKey GetArticleIdKey(Guid articleId)
+    public static RedisKey GetArticleIdKey(
+        Guid articleId)
     {
         return $"articles:id:{articleId:N}";
     }

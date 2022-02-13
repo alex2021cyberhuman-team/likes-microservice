@@ -6,7 +6,12 @@ namespace Conduit.Likes.Domain.Articles;
 
 public interface IArticleConsumerRepository
 {
-    Task CreateAsync(CreateArticleEventModel model);
-    Task RemoveAsync(DeleteArticleEventModel model);
-    Task UpdateAsync(UpdateArticleEventModel model);
+    Task CreateAsync(
+        CreateArticleEventModel model);
+
+    Task RemoveAsync(
+        DeleteArticleEventModel model);
+
+    Task UpdateAsync(
+        UpdateArticleEventModel model);
 }

@@ -8,26 +8,29 @@ using Conduit.Shared.Events.Services;
 namespace Conduit.Likes.BusinessLogic.Unfavorites.UnfavoriteArticle;
 
 public class
-    UnfavoriteArticleHandler : Domain.Favorites.UnfavoriteArticle
-    .UnfavoriteArticleHandler
+    UnfavoriteArticleHandler : Domain.Favorites.UnfavoriteArticle.
+        UnfavoriteArticleHandler
 {
     private readonly IFavoritesRepository _favoritesRepository;
     private readonly IArticleRepository _articleRepository;
 
-    private readonly IEventProducer<UnfavoriteArticleEventModel> _unfavoriteArticleEventProducer;
+    private readonly IEventProducer<UnfavoriteArticleEventModel>
+        _unfavoriteArticleEventProducer;
 
     public UnfavoriteArticleHandler(
         IFavoritesRepository favoritesRepository,
         IArticleRepository articleRepository,
-        IEventProducer<UnfavoriteArticleEventModel> unfavoriteArticleEventProducer)
+        IEventProducer<UnfavoriteArticleEventModel>
+            unfavoriteArticleEventProducer)
     {
         _favoritesRepository = favoritesRepository;
         _articleRepository = articleRepository;
         _unfavoriteArticleEventProducer = unfavoriteArticleEventProducer;
     }
 
-    public override async Task<UnfavoriteArticleResponse> UnfavoriteArticleAsync(
-        UnfavoriteArticleRequest request)
+    public override async Task<UnfavoriteArticleResponse>
+        UnfavoriteArticleAsync(
+            UnfavoriteArticleRequest request)
     {
         var articleModel =
             await _articleRepository.FindArticleAsync(request.ArticleSlug);

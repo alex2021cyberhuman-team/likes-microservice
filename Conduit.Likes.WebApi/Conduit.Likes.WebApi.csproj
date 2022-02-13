@@ -8,14 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Conduit.Likes.BusinessLogic\Conduit.Likes.BusinessLogic.csproj" />
-    <ProjectReference Include="..\Conduit.Likes.Domain\Conduit.Likes.Domain.csproj" />
-    <ProjectReference Include="..\Conduit.Likes.DataAccess\Conduit.Likes.DataAccess.csproj" />
-    <ProjectReference Include="..\shared-core\Conduit.Shared\Conduit.Shared.csproj" />
+    <ProjectReference Include="..\Conduit.Likes.BusinessLogic\Conduit.Likes.BusinessLogic.csproj"/>
+    <ProjectReference Include="..\Conduit.Likes.Domain\Conduit.Likes.Domain.csproj"/>
+    <ProjectReference Include="..\Conduit.Likes.DataAccess\Conduit.Likes.DataAccess.csproj"/>
+    <ProjectReference Include="..\shared-core\Conduit.Shared\Conduit.Shared.csproj"/>
   </ItemGroup>
 
 </Project>

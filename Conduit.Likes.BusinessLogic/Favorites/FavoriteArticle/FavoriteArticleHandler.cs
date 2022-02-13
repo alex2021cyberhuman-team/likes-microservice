@@ -8,7 +8,8 @@ using Conduit.Shared.Events.Services;
 namespace Conduit.Likes.BusinessLogic.Unfavorites.FavoriteArticle;
 
 public class
-    FavoriteArticleHandler : Domain.Favorites.FavoriteArticle.FavoriteArticleHandler
+    FavoriteArticleHandler : Domain.Favorites.FavoriteArticle.
+        FavoriteArticleHandler
 {
     private readonly IFavoritesRepository _favoritesRepository;
     private readonly IArticleRepository _articleRepository;

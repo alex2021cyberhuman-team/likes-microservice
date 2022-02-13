@@ -22,7 +22,7 @@ public class ConnectionProvider
         await ConnectAsync();
         return _connectionMultiplexer!.GetDatabase();
     }
-    
+
     private async Task ConnectAsync()
     {
         var options = _connectionProviderOptionsMonitor.CurrentValue;

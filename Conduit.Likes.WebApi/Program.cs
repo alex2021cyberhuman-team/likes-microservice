@@ -30,22 +30,32 @@ services.AddSwaggerGen(c =>
 });
 
 services.AddJwtServices(configuration.GetSection("Jwt").Bind)
-    .AddW3CLogging(configuration.GetSection("W3C").Bind)
-    .AddHttpClient()
+    .AddW3CLogging(configuration.GetSection("W3C").Bind).AddHttpClient()
     .AddHttpContextAccessor()
     .RegisterRabbitMqWithHealthCheck(configuration.GetSection("RabbitMQ").Bind)
-    .RegisterConsumer<CreateArticleEventModel, CreateArticleConsumer>(ConfigureConsumer)
-    .RegisterConsumer<UpdateArticleEventModel, UpdateArticleConsumer>(ConfigureConsumer)
-    .RegisterConsumer<DeleteArticleEventModel, DeleteArticleConsumer>(ConfigureConsumer)
+    .RegisterConsumer<CreateArticleEventModel,
+        CreateArticleConsumer>(ConfigureConsumer)
+    .RegisterConsumer<UpdateArticleEventModel,
+        UpdateArticleConsumer>(ConfigureConsumer)
+    .RegisterConsumer<DeleteArticleEventModel,
+        DeleteArticleConsumer>(ConfigureConsumer)
     .RegisterProducer<FavoriteArticleEventModel>()
     .RegisterProducer<UnfavoriteArticleEventModel>()
-    .AddSingleton<Conduit.Likes.Domain.Favorites.FavoriteArticle.FavoriteArticleHandler, Conduit.Likes.BusinessLogic.Unfavorites.FavoriteArticle.FavoriteArticleHandler>()
-    .AddSingleton<Conduit.Likes.Domain.Favorites.UnfavoriteArticle.UnfavoriteArticleHandler, Conduit.Likes.BusinessLogic.Unfavorites.UnfavoriteArticle.UnfavoriteArticleHandler>()
+    .AddSingleton<
+        Conduit.Likes.Domain.Favorites.FavoriteArticle.FavoriteArticleHandler,
+        Conduit.Likes.BusinessLogic.Unfavorites.FavoriteArticle.
+        FavoriteArticleHandler>()
+    .AddSingleton<
+        Conduit.Likes.Domain.Favorites.UnfavoriteArticle.
+        UnfavoriteArticleHandler,
+        Conduit.Likes.BusinessLogic.Unfavorites.UnfavoriteArticle.
+        UnfavoriteArticleHandler>()
     .AddSingleton<IFavoritesRepository, FavoritesRepository>()
     .AddSingleton<IArticleRepository, ArticlesRepository>()
     .AddSingleton<IArticleConsumerRepository, ArticleConsumerRepository>()
     .AddSingleton<ConnectionProvider>()
-    .Configure<ConnectionProviderOptions>(configuration.GetSection("RedisDatabase").Bind);
+    .Configure<ConnectionProviderOptions>(configuration
+        .GetSection("RedisDatabase").Bind);
 
 #endregion
 
