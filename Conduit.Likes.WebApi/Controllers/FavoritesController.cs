@@ -3,7 +3,6 @@ using Conduit.Likes.Domain.Favorites.UnfavoriteArticle;
 using Conduit.Likes.Domain.Shared;
 using Conduit.Shared.AuthorizationExtensions;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Conduit.Likes.WebApi.Controllers;

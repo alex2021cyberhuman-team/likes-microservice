@@ -5,7 +5,7 @@ using Conduit.Likes.Domain.Shared;
 using Conduit.Shared.Events.Models.Likes.Favorite;
 using Conduit.Shared.Events.Services;
 
-namespace Conduit.Likes.BusinessLogic.Unfavorites.FavoriteArticle;
+namespace Conduit.Likes.BusinessLogic.Favorites.FavoriteArticle;
 
 public class
     FavoriteArticleHandler : Domain.Favorites.FavoriteArticle.

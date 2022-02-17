@@ -17,6 +17,6 @@ public class DeleteArticleConsumer : IEventConsumer<DeleteArticleEventModel>
     public async Task ConsumeAsync(
         DeleteArticleEventModel message)
     {
-        await _articleConsumeRepository.DeleteAsync(message);
+        await _articleConsumeRepository.RemoveAsync(message);
     }
 }

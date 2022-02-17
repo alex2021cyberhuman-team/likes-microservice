@@ -1,4 +1,6 @@
 using Conduit.Likes.BusinessLogic.Articles;
+using Conduit.Likes.BusinessLogic.Favorites.FavoriteArticle;
+using Conduit.Likes.BusinessLogic.Favorites.UnfavoriteArticle;
 using Conduit.Likes.DataAccess;
 using Conduit.Likes.DataAccess.Articles;
 using Conduit.Likes.DataAccess.Favorites;
@@ -43,13 +45,10 @@ services.AddJwtServices(configuration.GetSection("Jwt").Bind)
     .RegisterProducer<UnfavoriteArticleEventModel>()
     .AddSingleton<
         Conduit.Likes.Domain.Favorites.FavoriteArticle.FavoriteArticleHandler,
-        Conduit.Likes.BusinessLogic.Unfavorites.FavoriteArticle.
         FavoriteArticleHandler>()
     .AddSingleton<
         Conduit.Likes.Domain.Favorites.UnfavoriteArticle.
-        UnfavoriteArticleHandler,
-        Conduit.Likes.BusinessLogic.Unfavorites.UnfavoriteArticle.
-        UnfavoriteArticleHandler>()
+        UnfavoriteArticleHandler, UnfavoriteArticleHandler>()
     .AddSingleton<IFavoritesRepository, FavoritesRepository>()
     .AddSingleton<IArticleRepository, ArticlesRepository>()
     .AddSingleton<IArticleConsumerRepository, ArticleConsumerRepository>()
