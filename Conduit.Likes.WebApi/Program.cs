@@ -35,6 +35,9 @@ services.AddJwtServices(configuration.GetSection("Jwt").Bind)
     .AddW3CLogging(configuration.GetSection("W3C").Bind).AddHttpClient()
     .AddHttpContextAccessor()
     .RegisterRabbitMqWithHealthCheck(configuration.GetSection("RabbitMQ").Bind)
+    .AddHealthChecks()
+    .AddRedis(GetRedisConnectionString(configuration))
+    .Services
     .RegisterConsumer<CreateArticleEventModel,
         CreateArticleConsumer>(ConfigureConsumer)
     .RegisterConsumer<UpdateArticleEventModel,
@@ -66,9 +69,6 @@ if (environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-        c.SwaggerEndpoint("/swagger/v1/swagger.json",
-            "Conduit.Likes.WebApi v1"));
     IdentityModelEventSource.ShowPII = true;
 }
 
@@ -91,4 +91,13 @@ void ConfigureConsumer<T>(
     RabbitMqSettings<T> settings)
 {
     settings.Consumer = "likes";
+}
+
+static string GetRedisConnectionString(
+    IConfiguration configuration)
+{
+    var redisConnectionProviderOptions = new ConnectionProviderOptions();
+    configuration.GetSection("RedisDatabase")
+        .Bind(redisConnectionProviderOptions);
+    return redisConnectionProviderOptions.Configuration;
 }

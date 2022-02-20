@@ -18,10 +18,10 @@ public class FavoritesRepository : IFavoritesRepository
         Guid userId)
     {
         var database = await _connectionProvider.GetDatabaseAsync();
-        var transaction = database.CreateTransaction();
-        var added = await transaction.SetAddAsync(
-            FavoritesKeys.GetUserFavoritesKey(userId), articleId.ToString("N"));
-        await transaction.ExecuteAsync();
+        var userFavoritesKey = FavoritesKeys.GetUserFavoritesKey(userId);
+        var newUserFavoritesValue = articleId.ToString("N");
+        var added = await database.SetAddAsync(
+            userFavoritesKey, newUserFavoritesValue);
         return added ? Error.None : Error.BadRequest;
     }
 
@@ -30,10 +30,8 @@ public class FavoritesRepository : IFavoritesRepository
         Guid userId)
     {
         var database = await _connectionProvider.GetDatabaseAsync();
-        var transaction = database.CreateTransaction();
-        var removed = await transaction.SetRemoveAsync(
+        var removed = await database.SetRemoveAsync(
             FavoritesKeys.GetUserFavoritesKey(userId), articleId.ToString("N"));
-        await transaction.ExecuteAsync();
         return removed ? Error.None : Error.BadRequest;
     }
 }

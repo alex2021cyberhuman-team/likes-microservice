@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Conduit.Likes.Domain.Favorites.FavoriteArticle;
 using Conduit.Likes.Domain.Favorites.UnfavoriteArticle;
 using Conduit.Likes.Domain.Shared;
@@ -14,12 +15,13 @@ public class FavoritesController : ControllerBase
     [Authorize]
     public async Task<IActionResult> FavoriteArticle(
         [FromServices] FavoriteArticleHandler favoriteArticleHandler,
-        [FromRoute] string articleSlug)
+        [FromServices] ILogger<FavoritesController> logger,
+        [FromRoute][Required] string slug)
     {
         var userId = HttpContext.GetCurrentUserId();
         var request = new FavoriteArticleRequest
         {
-            ArticleSlug = articleSlug, UserId = userId
+            ArticleSlug = slug, UserId = userId
         };
         var response = await favoriteArticleHandler.FavoriteAsync(request);
         var error = response.Error;
@@ -31,12 +33,13 @@ public class FavoritesController : ControllerBase
     [Authorize]
     public async Task<IActionResult> FavoriteArticle(
         [FromServices] UnfavoriteArticleHandler unfavoriteArticleHandler,
-        [FromRoute] string articleSlug)
+        [FromServices] ILogger<FavoritesController> logger,
+        [FromRoute][Required] string slug)
     {
         var userId = HttpContext.GetCurrentUserId();
         var request = new UnfavoriteArticleRequest
         {
-            ArticleSlug = articleSlug, UserId = userId
+            ArticleSlug = slug, UserId = userId
         };
         var response =
             await unfavoriteArticleHandler.UnfavoriteArticleAsync(request);

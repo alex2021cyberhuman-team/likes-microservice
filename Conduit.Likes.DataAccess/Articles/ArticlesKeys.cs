@@ -10,10 +10,10 @@ public static class ArticlesKeys
 
     static ArticlesKeys()
     {
-        _articleFields = new RedisValue[] { ArticleId, ArticleSlug };
+        ArticleFields = new RedisValue[] { ArticleId, ArticleSlug };
     }
 
-    private static readonly RedisValue[] _articleFields;
+    private static readonly RedisValue[] ArticleFields;
 
     public static RedisKey GetArticleSlugKey(
         string articleSlug)
@@ -23,7 +23,7 @@ public static class ArticlesKeys
 
     public static RedisValue[] GetArticleFields()
     {
-        return _articleFields;
+        return ArticleFields;
     }
 
     public static ArticleModel Convert(
