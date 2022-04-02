@@ -5,10 +5,10 @@ namespace Conduit.Likes.DataAccess;
 
 public class ConnectionProvider
 {
-    private ConnectionMultiplexer? _connectionMultiplexer = null;
-
     private readonly IOptionsMonitor<ConnectionProviderOptions>
         _connectionProviderOptionsMonitor;
+
+    private ConnectionMultiplexer? _connectionMultiplexer;
 
     public ConnectionProvider(
         IOptionsMonitor<ConnectionProviderOptions>

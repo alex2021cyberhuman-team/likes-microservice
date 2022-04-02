@@ -1,17 +1,19 @@
+using System.Globalization;
 using Conduit.Likes.BusinessLogic.Articles;
-using Conduit.Likes.BusinessLogic.Favorites.FavoriteArticle;
-using Conduit.Likes.BusinessLogic.Favorites.UnfavoriteArticle;
 using Conduit.Likes.DataAccess;
 using Conduit.Likes.DataAccess.Articles;
 using Conduit.Likes.DataAccess.Favorites;
 using Conduit.Likes.Domain.Articles;
 using Conduit.Likes.Domain.Favorites;
+using Conduit.Likes.Domain.Favorites.FavoriteArticle;
+using Conduit.Likes.Domain.Favorites.UnfavoriteArticle;
 using Conduit.Shared.Events.Models.Articles.CreateArticle;
 using Conduit.Shared.Events.Models.Articles.DeleteArticle;
 using Conduit.Shared.Events.Models.Articles.UpdateArticle;
 using Conduit.Shared.Events.Models.Likes.Favorite;
 using Conduit.Shared.Events.Models.Likes.Unfavorite;
 using Conduit.Shared.Events.Services.RabbitMQ;
+using Conduit.Shared.Localization;
 using Conduit.Shared.Startup;
 using Conduit.Shared.Tokens;
 using Conduit.Shared.Validation;
@@ -24,9 +26,8 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 var environment = builder.Environment;
 var configuration = builder.Configuration;
-
-services.AddControllers()
-    .RegisterValidateModelAttribute();
+var supportedCultures = new CultureInfo[] { new("ru"), new("en") };
+services.AddControllers().Localize<SharedResource>(supportedCultures);
 services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1",
@@ -34,11 +35,11 @@ services.AddSwaggerGen(c =>
 });
 
 services.AddJwtServices(configuration.GetSection("Jwt").Bind)
+    .DisableDefaultModelValidation()
     .AddW3CLogging(configuration.GetSection("W3C").Bind).AddHttpClient()
     .AddHttpContextAccessor()
     .RegisterRabbitMqWithHealthCheck(configuration.GetSection("RabbitMQ").Bind)
-    .AddHealthChecks()
-    .AddRedis(GetRedisConnectionString(configuration))
+    .AddHealthChecks().AddRedis(GetRedisConnectionString(configuration))
     .Services
     .RegisterConsumer<CreateArticleEventModel,
         CreateArticleConsumer>(ConfigureConsumer)
@@ -48,12 +49,12 @@ services.AddJwtServices(configuration.GetSection("Jwt").Bind)
         DeleteArticleConsumer>(ConfigureConsumer)
     .RegisterProducer<FavoriteArticleEventModel>()
     .RegisterProducer<UnfavoriteArticleEventModel>()
-    .AddSingleton<
-        Conduit.Likes.Domain.Favorites.FavoriteArticle.FavoriteArticleHandler,
+    .AddSingleton<FavoriteArticleHandler,
+        Conduit.Likes.BusinessLogic.Favorites.FavoriteArticle.
         FavoriteArticleHandler>()
-    .AddSingleton<
-        Conduit.Likes.Domain.Favorites.UnfavoriteArticle.
-        UnfavoriteArticleHandler, UnfavoriteArticleHandler>()
+    .AddSingleton<UnfavoriteArticleHandler,
+        Conduit.Likes.BusinessLogic.Favorites.UnfavoriteArticle.
+        UnfavoriteArticleHandler>()
     .AddSingleton<IFavoritesRepository, FavoritesRepository>()
     .AddSingleton<IArticleRepository, ArticlesRepository>()
     .AddSingleton<IArticleConsumerRepository, ArticleConsumerRepository>()
@@ -78,6 +79,7 @@ app.UseRouting();
 app.UseCors(options =>
     options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 app.UseW3CLogging();
+app.UseRequestLocalization();
 app.UseAuthentication();
 app.UseAuthorization();
 

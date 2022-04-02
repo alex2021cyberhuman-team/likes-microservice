@@ -8,12 +8,12 @@ public static class ArticlesKeys
     public const string ArticleId = "i";
     public const string ArticleSlug = "s";
 
+    private static readonly RedisValue[] ArticleFields;
+
     static ArticlesKeys()
     {
         ArticleFields = new RedisValue[] { ArticleId, ArticleSlug };
     }
-
-    private static readonly RedisValue[] ArticleFields;
 
     public static RedisKey GetArticleSlugKey(
         string articleSlug)

@@ -11,8 +11,8 @@ public class
     UnfavoriteArticleHandler : Domain.Favorites.UnfavoriteArticle.
         UnfavoriteArticleHandler
 {
-    private readonly IFavoritesRepository _favoritesRepository;
     private readonly IArticleRepository _articleRepository;
+    private readonly IFavoritesRepository _favoritesRepository;
 
     private readonly IEventProducer<UnfavoriteArticleEventModel>
         _unfavoriteArticleEventProducer;

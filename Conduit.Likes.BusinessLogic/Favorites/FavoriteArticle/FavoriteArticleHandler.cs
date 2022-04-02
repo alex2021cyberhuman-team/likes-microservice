@@ -11,11 +11,12 @@ public class
     FavoriteArticleHandler : Domain.Favorites.FavoriteArticle.
         FavoriteArticleHandler
 {
-    private readonly IFavoritesRepository _favoritesRepository;
     private readonly IArticleRepository _articleRepository;
 
     private readonly IEventProducer<FavoriteArticleEventModel>
         _favoriteArticleEventProducer;
+
+    private readonly IFavoritesRepository _favoritesRepository;
 
     public FavoriteArticleHandler(
         IFavoritesRepository favoritesRepository,
