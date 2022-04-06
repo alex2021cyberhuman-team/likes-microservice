@@ -15,7 +15,6 @@ public class FavoritesController : ControllerBase
     [Authorize]
     public async Task<IActionResult> FavoriteArticle(
         [FromServices] FavoriteArticleHandler favoriteArticleHandler,
-        [FromServices] ILogger<FavoritesController> logger,
         [FromRoute] [Required] string slug)
     {
         var userId = HttpContext.GetCurrentUserId();
@@ -33,7 +32,6 @@ public class FavoritesController : ControllerBase
     [Authorize]
     public async Task<IActionResult> FavoriteArticle(
         [FromServices] UnfavoriteArticleHandler unfavoriteArticleHandler,
-        [FromServices] ILogger<FavoritesController> logger,
         [FromRoute] [Required] string slug)
     {
         var userId = HttpContext.GetCurrentUserId();

@@ -94,7 +94,7 @@ await initializationScope.InitializeQueuesAsync();
 
 app.Run();
 
-void ConfigureConsumer<T>(
+static void ConfigureConsumer<T>(
     RabbitMqSettings<T> settings)
 {
     settings.Consumer = "likes";
