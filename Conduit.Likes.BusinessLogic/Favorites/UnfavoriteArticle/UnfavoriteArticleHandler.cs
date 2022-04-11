@@ -51,7 +51,8 @@ public class
 
         var unfavoriteArticleEventModel = new UnfavoriteArticleEventModel
         {
-            ArticleId = articleModel.Id, UserId = request.UserId
+            ArticleId = articleModel.Id,
+            UserId = request.UserId
         };
 
         await _unfavoriteArticleEventProducer.ProduceEventAsync(

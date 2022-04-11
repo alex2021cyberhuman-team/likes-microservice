@@ -1,4 +1,4 @@
-﻿using Conduit.Likes.Domain.Shared;
+using Conduit.Likes.Domain.Shared;
 
 namespace Conduit.Likes.Domain.Favorites.FavoriteArticle;
 

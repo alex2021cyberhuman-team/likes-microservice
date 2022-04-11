@@ -1,4 +1,4 @@
-﻿namespace Conduit.Likes.Domain.Shared;
+namespace Conduit.Likes.Domain.Shared;
 
 public abstract class BaseResponse
 {

@@ -1,4 +1,4 @@
-﻿namespace Conduit.Likes.WebApi;
+namespace Conduit.Likes.WebApi;
 
 public class SharedResource
 {

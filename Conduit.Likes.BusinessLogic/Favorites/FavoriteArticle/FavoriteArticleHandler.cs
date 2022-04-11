@@ -50,7 +50,8 @@ public class
 
         var favoriteArticleEventModel = new FavoriteArticleEventModel
         {
-            ArticleId = articleModel.Id, UserId = request.UserId
+            ArticleId = articleModel.Id,
+            UserId = request.UserId
         };
 
         await _favoriteArticleEventProducer.ProduceEventAsync(

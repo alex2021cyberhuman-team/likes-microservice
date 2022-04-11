@@ -1,4 +1,4 @@
-﻿namespace Conduit.Likes.Domain.Favorites.FavoriteArticle;
+namespace Conduit.Likes.Domain.Favorites.FavoriteArticle;
 
 public abstract class FavoriteArticleHandler
 {

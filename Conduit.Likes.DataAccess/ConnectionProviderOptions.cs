@@ -1,4 +1,4 @@
-﻿namespace Conduit.Likes.DataAccess;
+namespace Conduit.Likes.DataAccess;
 
 public class ConnectionProviderOptions
 {

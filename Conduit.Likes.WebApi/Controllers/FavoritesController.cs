@@ -15,12 +15,13 @@ public class FavoritesController : ControllerBase
     [Authorize]
     public async Task<IActionResult> FavoriteArticle(
         [FromServices] FavoriteArticleHandler favoriteArticleHandler,
-        [FromRoute] [Required] string slug)
+        [FromRoute][Required] string slug)
     {
         var userId = HttpContext.GetCurrentUserId();
         var request = new FavoriteArticleRequest
         {
-            ArticleSlug = slug, UserId = userId
+            ArticleSlug = slug,
+            UserId = userId
         };
         var response = await favoriteArticleHandler.FavoriteAsync(request);
         var error = response.Error;
@@ -32,12 +33,13 @@ public class FavoritesController : ControllerBase
     [Authorize]
     public async Task<IActionResult> FavoriteArticle(
         [FromServices] UnfavoriteArticleHandler unfavoriteArticleHandler,
-        [FromRoute] [Required] string slug)
+        [FromRoute][Required] string slug)
     {
         var userId = HttpContext.GetCurrentUserId();
         var request = new UnfavoriteArticleRequest
         {
-            ArticleSlug = slug, UserId = userId
+            ArticleSlug = slug,
+            UserId = userId
         };
         var response =
             await unfavoriteArticleHandler.UnfavoriteArticleAsync(request);
